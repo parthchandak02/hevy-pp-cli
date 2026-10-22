@@ -1,0 +1,16 @@
+# agentcookie.toml: secrets-bus adoption manifest v2
+# See docs/spec-agentcookie-secrets-bus-v2-adoption.md
+schema_version = 2
+name = "hevy-pp-cli"
+display_name = "Hevy Docs"
+description = "Welcome to Hevy's public API!"
+project_kind = "cli"
+
+[secrets.file]
+path = "~/.config/hevy-pp-cli/config.toml"
+
+[sync]
+default = false
+
+[sync.keys]
+HEVY_API_KEY = true

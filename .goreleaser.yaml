@@ -1,0 +1,51 @@
+version: 2
+project_name: hevy-pp-cli
+changelog:
+  disable: true
+builds:
+  - id: hevy-pp-cli
+    main: ./cmd/hevy-pp-cli
+    binary: hevy-pp-cli
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w -X hevy-pp-cli/internal/cli.version={{ .Version }}
+    targets:
+      - darwin_amd64
+      - darwin_arm64
+      - linux_amd64
+      - linux_arm64
+      - windows_amd64
+      - windows_arm64
+  - id: hevy-pp-mcp
+    main: ./cmd/hevy-pp-mcp
+    binary: hevy-pp-mcp
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w -X main.version={{ .Version }}
+    targets:
+      - darwin_amd64
+      - darwin_arm64
+      - linux_amd64
+      - linux_arm64
+      - windows_amd64
+      - windows_arm64
+archives:
+  - formats: [tar.gz]
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+checksum:
+  name_template: checksums.txt
+brews:
+  - name: hevy-pp-cli
+    repository:
+      owner: parthchandak02
+      name: homebrew-tap
+    homepage: "https://github.com/parthchandak02/hevy-pp-cli"
+    description: "Welcome to Hevy's public API!"
+    install: |
+      bin.install "hevy-pp-cli"
+      bin.install "hevy-pp-mcp"

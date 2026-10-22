@@ -1,0 +1,39 @@
+{
+  "manifest_version": "0.3",
+  "name": "hevy-pp-mcp",
+  "display_name": "Hevy Docs",
+  "version": "0.0.0",
+  "description": "Welcome to Hevy's public API!",
+  "author": {
+    "name": "CLI Printing Press"
+  },
+  "license": "Apache-2.0",
+  "server": {
+    "type": "binary",
+    "entry_point": "bin/hevy-pp-mcp",
+    "mcp_config": {
+      "command": "${__dirname}/bin/hevy-pp-mcp",
+      "args": [],
+      "env": {
+        "HEVY_API_KEY": "${user_config.hevy_api_key}"
+      }
+    }
+  },
+  "user_config": {
+    "hevy_api_key": {
+      "type": "string",
+      "title": "HEVY_API_KEY",
+      "description": "Sets HEVY_API_KEY for the Hevy Docs MCP server.",
+      "sensitive": true,
+      "required": true
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=1.0.0",
+    "platforms": [
+      "darwin",
+      "linux",
+      "win32"
+    ]
+  }
+}

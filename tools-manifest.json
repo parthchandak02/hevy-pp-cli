@@ -1,0 +1,740 @@
+{
+  "api_name": "hevy",
+  "base_url": "https://api.hevyapp.com",
+  "description": "Welcome to Hevy's public API! We're just starting to roll this out and depending on your\n      feedback, we'll be adding more features and endpoints. Also, we make no guarantees that \n      we won't completely change the structure or abandon the project entirely so use it at\n      your own risk. Currently, this API is only available to Hevy Pro users. You can get your \n      key on our web app at https://hevy.com/settings?developer. If you have any questions,\n      please reach out to pedro@hevyapp.com 🤝.",
+  "mcp_ready": "full",
+  "http_transport": "standard",
+  "auth": {
+    "type": "api_key",
+    "header": "api-key",
+    "in": "header",
+    "env_vars": [
+      "HEVY_API_KEY"
+    ],
+    "env_var_specs": [
+      {
+        "name": "HEVY_API_KEY",
+        "kind": "per_call",
+        "required": true,
+        "sensitive": true,
+        "inferred": true
+      }
+    ]
+  },
+  "required_headers": [],
+  "tools": [
+    {
+      "name": "body-measurements_get-v1",
+      "description": "Get a paginated list of body measurements for the authenticated user. Optional: page (default: 1), pageSize (default: 10). Returns array of BodyMeasurement.",
+      "method": "GET",
+      "path": "/v1/body_measurements",
+      "params": [
+        {
+          "name": "page",
+          "type": "int",
+          "location": "query",
+          "description": "Page number (Must be 1 or greater)"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Number of items per page (Max 10)"
+        }
+      ]
+    },
+    {
+      "name": "body-measurements_get-v1-date",
+      "description": "Get a single body measurement by date. Required: date. Returns the BodyMeasurement.",
+      "method": "GET",
+      "path": "/v1/body_measurements/{date}",
+      "params": [
+        {
+          "name": "date",
+          "type": "string",
+          "location": "path",
+          "description": "The date of the body measurement (YYYY-MM-DD)",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "body-measurements_post-v1",
+      "description": "Create a body measurement entry for a given date. Returns 409 if an entry already exists for that date. Required: date. Optional: abdomen, chest_cm, fat_percent (plus 14 more).",
+      "method": "POST",
+      "path": "/v1/body_measurements",
+      "params": [
+        {
+          "name": "abdomen",
+          "type": "float",
+          "location": "body",
+          "description": "Abdomen"
+        },
+        {
+          "name": "chest_cm",
+          "type": "float",
+          "location": "body",
+          "description": "Chest cm"
+        },
+        {
+          "name": "date",
+          "type": "string",
+          "location": "body",
+          "description": "Date",
+          "required": true
+        },
+        {
+          "name": "fat_percent",
+          "type": "float",
+          "location": "body",
+          "description": "Fat percent"
+        },
+        {
+          "name": "hips",
+          "type": "float",
+          "location": "body",
+          "description": "Hips"
+        },
+        {
+          "name": "lean_mass_kg",
+          "type": "float",
+          "location": "body",
+          "description": "Lean mass kg"
+        },
+        {
+          "name": "left_bicep_cm",
+          "type": "float",
+          "location": "body",
+          "description": "Left bicep cm"
+        },
+        {
+          "name": "left_calf",
+          "type": "float",
+          "location": "body",
+          "description": "Left calf"
+        },
+        {
+          "name": "left_forearm_cm",
+          "type": "float",
+          "location": "body",
+          "description": "Left forearm cm"
+        },
+        {
+          "name": "left_thigh",
+          "type": "float",
+          "location": "body",
+          "description": "Left thigh"
+        },
+        {
+          "name": "neck_cm",
+          "type": "float",
+          "location": "body",
+          "description": "Neck cm"
+        },
+        {
+          "name": "right_bicep_cm",
+          "type": "float",
+          "location": "body",
+          "description": "Right bicep cm"
+        },
+        {
+          "name": "right_calf",
+          "type": "float",
+          "location": "body",
+          "description": "Right calf"
+        },
+        {
+          "name": "right_forearm_cm",
+          "type": "float",
+          "location": "body",
+          "description": "Right forearm cm"
+        },
+        {
+          "name": "right_thigh",
+          "type": "float",
+          "location": "body",
+          "description": "Right thigh"
+        },
+        {
+          "name": "shoulder_cm",
+          "type": "float",
+          "location": "body",
+          "description": "Shoulder cm"
+        },
+        {
+          "name": "waist",
+          "type": "float",
+          "location": "body",
+          "description": "Waist"
+        },
+        {
+          "name": "weight_kg",
+          "type": "float",
+          "location": "body",
+          "description": "Weight kg"
+        }
+      ]
+    },
+    {
+      "name": "body-measurements_put-v1-date",
+      "description": "Update an existing body measurement entry for a given date. All fields are overwritten; omitted fields are set to null. Required: date. Optional: abdomen, chest_cm, fat_percent (plus 14 more).",
+      "method": "PUT",
+      "path": "/v1/body_measurements/{date}",
+      "params": [
+        {
+          "name": "date",
+          "type": "string",
+          "location": "path",
+          "description": "The date of the measurement to update (YYYY-MM-DD)",
+          "required": true
+        },
+        {
+          "name": "abdomen",
+          "type": "float",
+          "location": "body",
+          "description": "Abdomen"
+        },
+        {
+          "name": "chest_cm",
+          "type": "float",
+          "location": "body",
+          "description": "Chest cm"
+        },
+        {
+          "name": "fat_percent",
+          "type": "float",
+          "location": "body",
+          "description": "Fat percent"
+        },
+        {
+          "name": "hips",
+          "type": "float",
+          "location": "body",
+          "description": "Hips"
+        },
+        {
+          "name": "lean_mass_kg",
+          "type": "float",
+          "location": "body",
+          "description": "Lean mass kg"
+        },
+        {
+          "name": "left_bicep_cm",
+          "type": "float",
+          "location": "body",
+          "description": "Left bicep cm"
+        },
+        {
+          "name": "left_calf",
+          "type": "float",
+          "location": "body",
+          "description": "Left calf"
+        },
+        {
+          "name": "left_forearm_cm",
+          "type": "float",
+          "location": "body",
+          "description": "Left forearm cm"
+        },
+        {
+          "name": "left_thigh",
+          "type": "float",
+          "location": "body",
+          "description": "Left thigh"
+        },
+        {
+          "name": "neck_cm",
+          "type": "float",
+          "location": "body",
+          "description": "Neck cm"
+        },
+        {
+          "name": "right_bicep_cm",
+          "type": "float",
+          "location": "body",
+          "description": "Right bicep cm"
+        },
+        {
+          "name": "right_calf",
+          "type": "float",
+          "location": "body",
+          "description": "Right calf"
+        },
+        {
+          "name": "right_forearm_cm",
+          "type": "float",
+          "location": "body",
+          "description": "Right forearm cm"
+        },
+        {
+          "name": "right_thigh",
+          "type": "float",
+          "location": "body",
+          "description": "Right thigh"
+        },
+        {
+          "name": "shoulder_cm",
+          "type": "float",
+          "location": "body",
+          "description": "Shoulder cm"
+        },
+        {
+          "name": "waist",
+          "type": "float",
+          "location": "body",
+          "description": "Waist"
+        },
+        {
+          "name": "weight_kg",
+          "type": "float",
+          "location": "body",
+          "description": "Weight kg"
+        }
+      ]
+    },
+    {
+      "name": "exercise-history_get-v1-exercisetemplateid",
+      "description": "Get exercise history for a specific exercise template. Required: exerciseTemplateId. Optional: start_date, end_date. Returns array of ExerciseHistoryEntry.",
+      "method": "GET",
+      "path": "/v1/exercise_history/{exerciseTemplateId}",
+      "params": [
+        {
+          "name": "exerciseTemplateId",
+          "type": "string",
+          "location": "path",
+          "description": "The id of the exercise template",
+          "required": true
+        },
+        {
+          "name": "start_date",
+          "type": "string",
+          "location": "query",
+          "description": "Optional start date for filtering exercise history (ISO 8601 format)"
+        },
+        {
+          "name": "end_date",
+          "type": "string",
+          "location": "query",
+          "description": "Optional end date for filtering exercise history (ISO 8601 format)"
+        }
+      ]
+    },
+    {
+      "name": "exercise-templates_get-v1",
+      "description": "Get a paginated list of exercise templates available on the account. Optional: page (default: 1), pageSize (default: 5). Returns array of ExerciseTemplate.",
+      "method": "GET",
+      "path": "/v1/exercise_templates",
+      "params": [
+        {
+          "name": "page",
+          "type": "int",
+          "location": "query",
+          "description": "Page number (Must be 1 or greater)"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Number of items on the requested page (Max 100)"
+        }
+      ]
+    },
+    {
+      "name": "exercise-templates_get-v1-exercisetemplateid",
+      "description": "Get a single exercise template by id. Required: exerciseTemplateId. Returns array of string.",
+      "method": "GET",
+      "path": "/v1/exercise_templates/{exerciseTemplateId}",
+      "params": [
+        {
+          "name": "exerciseTemplateId",
+          "type": "string",
+          "location": "path",
+          "description": "The id of the exercise template",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "exercise-templates_post-v1",
+      "description": "Create a new custom exercise template. Required: exercise. Returns the new ExerciseTemplatesPostV1Response.",
+      "method": "POST",
+      "path": "/v1/exercise_templates",
+      "params": [
+        {
+          "name": "exercise-equipment-category",
+          "wire_name": "exercise.equipment_category",
+          "type": "string",
+          "location": "body",
+          "description": "Equipment category"
+        },
+        {
+          "name": "exercise-exercise-type",
+          "wire_name": "exercise.exercise_type",
+          "type": "string",
+          "location": "body",
+          "description": "Exercise type"
+        },
+        {
+          "name": "exercise-muscle-group",
+          "wire_name": "exercise.muscle_group",
+          "type": "string",
+          "location": "body",
+          "description": "Muscle group"
+        },
+        {
+          "name": "exercise-other-muscles",
+          "wire_name": "exercise.other_muscles",
+          "type": "string_csv_array",
+          "location": "body",
+          "description": "The other muscles of the exercise template."
+        },
+        {
+          "name": "exercise-title",
+          "wire_name": "exercise.title",
+          "type": "string",
+          "location": "body",
+          "description": "The title of the exercise template."
+        }
+      ]
+    },
+    {
+      "name": "routine-folders_get-v1",
+      "description": "Get a paginated list of routine folders available on the account. Optional: page (default: 1), pageSize (default: 5). Returns array of RoutineFolder.",
+      "method": "GET",
+      "path": "/v1/routine_folders",
+      "params": [
+        {
+          "name": "page",
+          "type": "int",
+          "location": "query",
+          "description": "Page number (Must be 1 or greater)"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Number of items on the requested page (Max 10)"
+        }
+      ]
+    },
+    {
+      "name": "routine-folders_get-v1-folderid",
+      "description": "Get a single routine folder by id. Required: folderId. Returns the RoutineFolder.",
+      "method": "GET",
+      "path": "/v1/routine_folders/{folderId}",
+      "params": [
+        {
+          "name": "folderId",
+          "type": "string",
+          "location": "path",
+          "description": "The id of the routine folder",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "routine-folders_post-v1",
+      "description": "Create a new routine folder. The folder will be created at index 0, and all other folders will have their indexes incremented. Optional: routine_folder. Returns the new RoutineFolder.",
+      "method": "POST",
+      "path": "/v1/routine_folders",
+      "params": [
+        {
+          "name": "routine-folder-title",
+          "wire_name": "routine_folder.title",
+          "type": "string",
+          "location": "body",
+          "description": "The title of the routine folder."
+        }
+      ]
+    },
+    {
+      "name": "routines_get-v1",
+      "description": "Get a paginated list of routines. Optional: page (default: 1), pageSize (default: 5). Returns array of Routine.",
+      "method": "GET",
+      "path": "/v1/routines",
+      "params": [
+        {
+          "name": "page",
+          "type": "int",
+          "location": "query",
+          "description": "Page number (Must be 1 or greater)"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Number of items on the requested page (Max 10)"
+        }
+      ]
+    },
+    {
+      "name": "routines_get-v1-routineid",
+      "description": "Get a routine by its Id. Required: routineId. Returns the RoutinesGetV1RoutineidResponse.",
+      "method": "GET",
+      "path": "/v1/routines/{routineId}",
+      "params": [
+        {
+          "name": "routineId",
+          "type": "string",
+          "location": "path",
+          "description": "The id of the routine",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "routines_post-v1",
+      "description": "Create a new routine. Optional: routine. Returns array of RoutinesPostV1Item.",
+      "method": "POST",
+      "path": "/v1/routines",
+      "params": [
+        {
+          "name": "routine-exercises",
+          "wire_name": "routine.exercises",
+          "type": "array",
+          "location": "body",
+          "description": "Exercises"
+        },
+        {
+          "name": "routine-folder-id",
+          "wire_name": "routine.folder_id",
+          "type": "float",
+          "location": "body",
+          "description": "The folder id the routine should be added to. Pass null to insert the routine into default 'My Routines' folder"
+        },
+        {
+          "name": "routine-notes",
+          "wire_name": "routine.notes",
+          "type": "string",
+          "location": "body",
+          "description": "Additional notes for the routine."
+        },
+        {
+          "name": "routine-title",
+          "wire_name": "routine.title",
+          "type": "string",
+          "location": "body",
+          "description": "The title of the routine."
+        }
+      ]
+    },
+    {
+      "name": "routines_put-v1-routineid",
+      "description": "Update an existing routine. Required: routineId. Optional: routine. Returns array of RoutinesPutV1RoutineidItem.",
+      "method": "PUT",
+      "path": "/v1/routines/{routineId}",
+      "params": [
+        {
+          "name": "routineId",
+          "type": "string",
+          "location": "path",
+          "description": "The id of the routine",
+          "required": true
+        },
+        {
+          "name": "routine-exercises",
+          "wire_name": "routine.exercises",
+          "type": "array",
+          "location": "body",
+          "description": "Exercises"
+        },
+        {
+          "name": "routine-notes",
+          "wire_name": "routine.notes",
+          "type": "string",
+          "location": "body",
+          "description": "Additional notes for the routine."
+        },
+        {
+          "name": "routine-title",
+          "wire_name": "routine.title",
+          "type": "string",
+          "location": "body",
+          "description": "The title of the routine."
+        }
+      ]
+    },
+    {
+      "name": "user_get-v1-info",
+      "description": "Get user info. Returns the UserInfoResponse.",
+      "method": "GET",
+      "path": "/v1/user/info",
+      "params": []
+    },
+    {
+      "name": "workouts_get-v1",
+      "description": "Get a paginated list of workouts. Optional: page (default: 1), pageSize (default: 5). Returns array of Workout.",
+      "method": "GET",
+      "path": "/v1/workouts",
+      "params": [
+        {
+          "name": "page",
+          "type": "int",
+          "location": "query",
+          "description": "Page number (Must be 1 or greater)"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Number of items on the requested page (Max 10)"
+        }
+      ]
+    },
+    {
+      "name": "workouts_get-v1-count",
+      "description": "Get the total number of workouts on the account. Returns the WorkoutsGetV1CountResponse.",
+      "method": "GET",
+      "path": "/v1/workouts/count",
+      "params": []
+    },
+    {
+      "name": "workouts_get-v1-events",
+      "description": "Retrieve a paged list of workout events (updates or deletes) since a given date. Events are ordered from newest to oldest. The intention is to allow clients to keep their local cache of workouts up to date without having to fetch the entire list of workouts. Optional: page (default: 1), pageSize (default: 5), since (default: 1970-01-01T00:00:00Z). Returns array of WorkoutsGetV1EventsItem.",
+      "method": "GET",
+      "path": "/v1/workouts/events",
+      "params": [
+        {
+          "name": "page",
+          "type": "int",
+          "location": "query",
+          "description": "Page number (Must be 1 or greater)"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "query",
+          "description": "Number of items on the requested page (Max 10)"
+        },
+        {
+          "name": "since",
+          "type": "string",
+          "location": "query",
+          "description": "Since"
+        }
+      ]
+    },
+    {
+      "name": "workouts_get-v1-workoutid",
+      "description": "Get a single workout’s complete details by the workoutId. Required: workoutId. Returns array of WorkoutsGetV1WorkoutidItem.",
+      "method": "GET",
+      "path": "/v1/workouts/{workoutId}",
+      "params": [
+        {
+          "name": "workoutId",
+          "type": "string",
+          "location": "path",
+          "description": "The id of the workout",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "workouts_post-v1",
+      "description": "Create a new workout. Optional: workout. Returns array of WorkoutsPostV1Item.",
+      "method": "POST",
+      "path": "/v1/workouts",
+      "params": [
+        {
+          "name": "workout-description",
+          "wire_name": "workout.description",
+          "type": "string",
+          "location": "body",
+          "description": "A description for the workout workout."
+        },
+        {
+          "name": "workout-end-time",
+          "wire_name": "workout.end_time",
+          "type": "string",
+          "location": "body",
+          "description": "The time the workout ended."
+        },
+        {
+          "name": "workout-exercises",
+          "wire_name": "workout.exercises",
+          "type": "array",
+          "location": "body",
+          "description": "Exercises"
+        },
+        {
+          "name": "workout-is-private",
+          "wire_name": "workout.is_private",
+          "type": "bool",
+          "location": "body",
+          "description": "A boolean indicating if the workout is private."
+        },
+        {
+          "name": "workout-start-time",
+          "wire_name": "workout.start_time",
+          "type": "string",
+          "location": "body",
+          "description": "The time the workout started."
+        },
+        {
+          "name": "workout-title",
+          "wire_name": "workout.title",
+          "type": "string",
+          "location": "body",
+          "description": "The title of the workout."
+        }
+      ]
+    },
+    {
+      "name": "workouts_put-v1-workoutid",
+      "description": "Update an existing workout. Required: workoutId. Optional: workout. Returns array of WorkoutsPutV1WorkoutidItem.",
+      "method": "PUT",
+      "path": "/v1/workouts/{workoutId}",
+      "params": [
+        {
+          "name": "workoutId",
+          "type": "string",
+          "location": "path",
+          "description": "The id of the workout",
+          "required": true
+        },
+        {
+          "name": "workout-description",
+          "wire_name": "workout.description",
+          "type": "string",
+          "location": "body",
+          "description": "A description for the workout workout."
+        },
+        {
+          "name": "workout-end-time",
+          "wire_name": "workout.end_time",
+          "type": "string",
+          "location": "body",
+          "description": "The time the workout ended."
+        },
+        {
+          "name": "workout-exercises",
+          "wire_name": "workout.exercises",
+          "type": "array",
+          "location": "body",
+          "description": "Exercises"
+        },
+        {
+          "name": "workout-is-private",
+          "wire_name": "workout.is_private",
+          "type": "bool",
+          "location": "body",
+          "description": "A boolean indicating if the workout is private."
+        },
+        {
+          "name": "workout-start-time",
+          "wire_name": "workout.start_time",
+          "type": "string",
+          "location": "body",
+          "description": "The time the workout started."
+        },
+        {
+          "name": "workout-title",
+          "wire_name": "workout.title",
+          "type": "string",
+          "location": "body",
+          "description": "The title of the workout."
+        }
+      ]
+    }
+  ]
+}
