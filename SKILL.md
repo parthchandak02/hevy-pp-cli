@@ -18,14 +18,15 @@ metadata:
 
 This skill drives the `hevy-pp-cli` binary. **You must verify the CLI is installed before invoking any command from this skill.** If it is missing, install it first:
 
-1. Install via the Printing Press installer. It defaults binaries to `$HOME/.local/bin` on macOS/Linux and `%LOCALAPPDATA%\Programs\PrintingPress\bin` on Windows:
+1. This CLI is not in the Printing Press public library yet, so `npx @mvanhorn/printing-press-library install hevy` does not work. Build it from source (needs Go 1.26 and git):
    ```bash
-   npx -y @mvanhorn/printing-press-library install hevy --cli-only
+   git clone https://github.com/parthchandak02/hevy-pp-cli.git
+   cd hevy-pp-cli
+   make install        # go install ./cmd/hevy-pp-cli -> $(go env GOPATH)/bin
+   make install-mcp    # optional: the hevy-pp-mcp server
    ```
 2. Verify: `hevy-pp-cli --version`
-3. Ensure the reported install directory is on `$PATH` for the agent/runtime that will invoke this skill.
-
-If the `npx` install fails before this CLI has a public-library category, install Node or use the category-specific Go fallback after publish.
+3. Ensure `$(go env GOPATH)/bin` is on `$PATH` for the agent/runtime that will invoke this skill.
 
 If `--version` reports "command not found" after install, the runtime cannot see the binary directory on `$PATH`. Do not proceed with skill commands until verification succeeds.
 
@@ -193,7 +194,7 @@ Parse `$ARGUMENTS`:
 
 ## MCP Server Installation
 
-Install the MCP binary from this CLI's published public-library entry or pre-built release, then register it:
+Install the MCP binary from source (`make install-mcp`, see Prerequisites), then register it:
 
 ```bash
 claude mcp add hevy-pp-mcp -- hevy-pp-mcp

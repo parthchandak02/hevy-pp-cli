@@ -42,8 +42,7 @@ func newWorkoutsGetV1Cmd(flags *rootFlags) *cobra.Command {
 			// already carries meta.source for those consumers.
 			// SYNC: keep this gate aligned with command_promoted.go.tmpl.
 			if wantsHumanTable(cmd.OutOrStdout(), flags) {
-				var countItems []json.RawMessage
-				_ = json.Unmarshal(data, &countItems)
+				countItems, _ := listItems(data)
 				printProvenance(cmd, len(countItems), prov)
 			}
 			// For JSON output, wrap with provenance envelope before passing through flags.

@@ -1294,9 +1294,8 @@ func printOutput(w io.Writer, data json.RawMessage, asJSON bool) error {
 		return enc.Encode(data)
 	}
 
-	// Try to detect if response is an array
-	var items []map[string]any
-	if err := json.Unmarshal(data, &items); err == nil && len(items) > 0 {
+	// Try to detect a list: a bare array or a paginated envelope around one
+	if items, ok := listItems(data); ok && len(items) > 0 {
 		if err := printAutoTable(w, items); err != nil {
 			return err
 		}
@@ -1318,6 +1317,36 @@ func printOutput(w io.Writer, data json.RawMessage, asJSON bool) error {
 	// Fallback: print raw
 	fmt.Fprintln(w, string(data))
 	return nil
+}
+
+// listItems returns the rows of a list response for table output: either a bare
+// JSON array of objects, or a paginated envelope such as
+// {"page":1,"page_count":3,"workouts":[...]} whose single array-of-objects field
+// holds the rows (Hevy wraps every list endpoint this way).
+func listItems(data json.RawMessage) ([]map[string]any, bool) {
+	var items []map[string]any
+	if err := json.Unmarshal(data, &items); err == nil {
+		return items, true
+	}
+	var obj map[string]json.RawMessage
+	if err := json.Unmarshal(data, &obj); err != nil {
+		return nil, false
+	}
+	var found []map[string]any
+	for _, raw := range obj {
+		var candidate []map[string]any
+		if err := json.Unmarshal(raw, &candidate); err != nil {
+			continue
+		}
+		if found != nil {
+			return nil, false // more than one list field: not a simple envelope
+		}
+		found = candidate
+	}
+	if found == nil {
+		return nil, false
+	}
+	return found, true
 }
 
 // levenshteinDistance computes the edit distance between two strings using a two-row DP approach.

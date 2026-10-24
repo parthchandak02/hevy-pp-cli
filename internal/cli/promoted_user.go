@@ -37,12 +37,11 @@ func newUserPromotedCmd(flags *rootFlags) *cobra.Command {
 			// already carries meta.source for those consumers.
 			// SYNC: keep this gate aligned with command_endpoint.go.tmpl.
 			if wantsHumanTable(cmd.OutOrStdout(), flags) {
-				var countItems []json.RawMessage
-				if json.Unmarshal(data, &countItems) != nil {
-					// Single object, not an array
-					countItems = []json.RawMessage{data}
+				count := 1 // single object
+				if items, ok := listItems(data); ok {
+					count = len(items)
 				}
-				printProvenance(cmd, len(countItems), prov)
+				printProvenance(cmd, count, prov)
 			}
 			// For JSON output, wrap with provenance envelope. --select wins over
 			// --compact when both are set; --compact only runs when no explicit
