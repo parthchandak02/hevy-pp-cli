@@ -32,3 +32,30 @@ func TestListItemsRejectsSingleObjects(t *testing.T) {
 		}
 	}
 }
+
+func TestPrioritizeHeadersIsStableAcrossRuns(t *testing.T) {
+	item := map[string]any{"zeta": 1, "alpha": 2, "mid": 3, "beta": 4, "id": "x", "title": "t"}
+	want := prioritizeHeaders(item)
+	if want[0] != "id" || want[1] != "title" {
+		t.Fatalf("identity fields first: got %v", want)
+	}
+	for i := 0; i < 50; i++ {
+		got := prioritizeHeaders(item)
+		for j := range want {
+			if got[j] != want[j] {
+				t.Fatalf("run %d: order changed: %v vs %v", i, got, want)
+			}
+		}
+	}
+}
+
+func TestWriteThroughUnwrapsHevyPageCountEnvelope(t *testing.T) {
+	var envelope map[string]json.RawMessage
+	if err := json.Unmarshal([]byte(`{"page":1,"page_count":3,"workouts":[{"id":"a"},{"id":"b"}]}`), &envelope); err != nil {
+		t.Fatal(err)
+	}
+	items, ok := extractWriteThroughListItems(envelope)
+	if !ok || len(items) != 2 {
+		t.Fatalf("expected 2 workout rows, got %d (ok=%v)", len(items), ok)
+	}
+}

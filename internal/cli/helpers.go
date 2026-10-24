@@ -1523,13 +1523,11 @@ func prioritizeFields(item map[string]any, includeComplex bool) []string {
 	numTiers := 5
 
 	type scored struct {
-		name  string
-		tier  int
-		index int
+		name string
+		tier int
 	}
 
 	var all []scored
-	idx := 0
 	for k, v := range item {
 		if !includeComplex {
 			switch v.(type) {
@@ -1572,15 +1570,15 @@ func prioritizeFields(item map[string]any, includeComplex bool) []string {
 		if _, ok := v.(bool); ok && tier >= numTiers {
 			tier = numTiers + 1
 		}
-		all = append(all, scored{name: k, tier: tier, index: idx})
-		idx++
+		all = append(all, scored{name: k, tier: tier})
 	}
 
+	// Map iteration order is random, so break ties by name to keep columns stable run to run
 	sort.Slice(all, func(i, j int) bool {
 		if all[i].tier != all[j].tier {
 			return all[i].tier < all[j].tier
 		}
-		return all[i].index < all[j].index
+		return all[i].name < all[j].name
 	})
 
 	headers := make([]string, len(all))

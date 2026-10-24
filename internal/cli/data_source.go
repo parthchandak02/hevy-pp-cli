@@ -249,7 +249,7 @@ var listEnvelopeMetadataKeys = map[string]bool{
 	// has-more flags and page numbers
 	"has_more": true, "hasMore": true, "has_next": true, "hasNext": true,
 	"next_page": true, "previous_page": true,
-	"page": true, "page_size": true, "per_page": true,
+	"page": true, "page_size": true, "per_page": true, "page_count": true, "pageCount": true,
 	// counts / totals
 	"total": true, "count": true, "size": true, "total_count": true, "totalCount": true,
 	// JSend / common status envelopes

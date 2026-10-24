@@ -11,3 +11,9 @@ every list command printed pretty JSON and a "0 results" provenance line.
 - `internal/cli/list_items_test.go` covers both shapes and the single-object cases.
 
 Reprint guard: keep envelope-aware list detection in the human table path.
+
+Follow-up: `prioritizeFields()` broke same-tier ties by map iteration order, so table and card
+columns shuffled between runs. Ties now sort by field name (`TestPrioritizeHeadersIsStableAcrossRuns`).
+
+Follow-up: `page_count` / `pageCount` added to `listEnvelopeMetadataKeys` in `data_source.go`, so the
+write-through cache unwraps Hevy's envelope into rows instead of warning that one ID-less item was not cached.
